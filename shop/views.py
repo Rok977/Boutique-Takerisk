@@ -22,10 +22,10 @@ User = get_user_model()  # ✅ Modèle utilisateur personnalisé ou par défaut
 
 
 def index(request):
-    return render(request, 'shop/index.html')
+    return render(request, '/index.html')
 
 def home(request):
-    return render(request, 'shop/home.html')
+    return render(request, 'home.html')
 
 def shop(request):
     products = Product.objects.all()
@@ -46,7 +46,7 @@ def shop(request):
     if selected_sizes:
         products = products.filter(size_id__in=[int(size) for size in selected_sizes])
 
-    return render(request, 'shop/shop.html', {
+    return render(request, 'shop.html', {
         'products': products,
         'categories': categories,
         'colors': colors,
@@ -65,7 +65,7 @@ def category(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     products = Product.objects.filter(category=category)
 
-    return render(request, 'shop/shop.html', {
+    return render(request, 'shop.html', {
         'products': products,
         'categories': Category.objects.all(),
         'selected_category': category,
@@ -141,18 +141,18 @@ def create_checkout_session(request):
 
     
 def payment_success(request):
-    return render(request, 'shop/payment_success.html')
+    return render(request, 'payment_success.html')
 
 def payment_cancel(request):
-    return render(request, 'shop/payment_cancel.html')
+    return render(request, 'payment_cancel.html')
 
 
 
 def about(request):
-    return render(request, 'shop/about.html')
+    return render(request, 'about.html')
 
 def contact(request):
-    return render(request, 'shop/contact.html')
+    return render(request, 'contact.html')
 
 @login_required
 def account(request):
