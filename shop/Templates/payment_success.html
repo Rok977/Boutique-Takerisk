@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="success-container">
+        <h2>Paiement Réussi 🎉</h2>
+        <p>Merci pour votre achat ! Vous recevrez un email de confirmation.</p>
+        <a href="{% url 'shop' %}" class="btn">Retourner à la boutique</a>
+    </div>
+{% endblock %}

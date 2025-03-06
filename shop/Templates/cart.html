@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h2>Mon Panier</h2>
+
+    <div class="cart-items">
+        {% for item in cart_items %}
+        <div class="cart-item" data-product-id="{{ item.product.id }}">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-item-img">
+            <div class="cart-item-details">
+                <h3>{{ item.product.name }}</h3>
+                <p>Prix: <span class="item-price">{{ item.product.price }}</span>€</p>
+                <div class="quantity-control">
+                    <button class="decrease-qty">-</button>
+                    <input type="text" class="item-qty" value="{{ item.quantity }}" readonly>
+                    <button class="increase-qty">+</button>
+                </div>
+                <button class="remove-item">❌ </button>
+            </div>
+        </div>
+        {% empty %}
+        <p>Votre panier est vide.</p>
+        {% endfor %}
+    </div>
+
+    <div class="cart-divider"></div>
+
+    <div class="cart-summary">
+        <p><strong>Total :</strong> <span id="cart-total">{{ total_price }}</span>€</p>
+        <form id="stripe-payment-form" action="{% url 'create_checkout_session' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Payer avec Stripe</button>
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

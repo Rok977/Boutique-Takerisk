@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="product-page">
+    <!-- ✅ IMAGE PRODUIT -->
+    <div class="product-gallery">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="main-image">
+    </div>
+
+    <!-- ✅ INFOS PRODUIT -->
+    <div class="product-info-container">
+        <h1 class="product-title">{{ product.name }}</h1>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-price">Prix : <strong>{{ product.price }}€</strong></p>
+
+        <!-- ✅ Sélecteur de quantité -->
+    <div class="quantity-container">
+        <button type="button" class="qty-btn decrease-qty">-</button>
+        <input type="number" id="quantity-input" name="quantity" value="1" min="1" max="{{ product.stock }}">
+        <button type="button" class="qty-btn increase-qty">+</button>
+    </div>
+
+        <!-- ✅ Indicateur de stock -->
+        {% if product.stock > 0 %}
+        <p class="product-stock available">
+            <i class="fas fa-check-circle"></i> En stock ({{ product.stock }} restants)
+        </p>
+    {% else %}
+        <p class="product-stock out-of-stock">
+            <i class="fas fa-times-circle"></i> Rupture de stock
+        </p>
+    {% endif %}
+    
+
+        <!-- ✅ Formulaire d'ajout au panier -->
+        <form id="add-to-cart-form" method="POST" action="{% url 'add_to_cart' product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-add-cart"> Ajouter au panier</button>
+        </form>
+
+        <!-- ✅ Boutons de partage -->
+        <div class="product-share">
+            <p>Partager :</p>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ SECTION AVIS CLIENTS -->
+<div class="reviews-container">
+    <h2 class="section-title">Avis Clients</h2>
+    {% for review in product.reviews.all %}
+        <div class="review-box">
+            <p><strong>{{ review.user.username }}</strong> - ★ {{ review.rating }}/5</p>
+            <p>{{ review.comment }}</p>
+        </div>
+    {% empty %}
+        <p class="no-reviews">Aucun avis pour ce produit.</p>
+    {% endfor %}
+
+    <!-- ✅ Formulaire pour ajouter un avis -->
+    {% if user.is_authenticated %}
+        <form method="POST" action="{% url 'add_review' product.id %}" class="review-form">
+            {% csrf_token %}
+            <label>Note :</label>
+            <select name="rating" class="review-select">
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
+                <option value="2">★★</option>
+                <option value="1">★</option>
+            </select>
+            <label>Votre avis :</label>
+            <textarea name="comment" required class="review-textarea"></textarea>
+            <button type="submit" class="btn-review">Laisser un avis</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}" class="login-link">Connectez-vous</a> pour laisser un avis.</p>
+    {% endif %}
+</div>
+
+<!-- ✅ PRODUITS SIMILAIRES -->
+<div class="related-products-container">
+    <h2 class="section-title">Produits Similaires</h2>
+    <div class="related-products-grid">
+        {% for related_product in related_products %}
+            <div class="related-product-card">
+                <a href="{% url 'product_detail' related_product.id %}">
+                    <img src="{{ related_product.image.url }}" alt="{{ related_product.name }}">
+                </a>
+                <h3 class="related-product-title">
+                    <a href="{% url 'product_detail' related_product.id %}">{{ related_product.name }}</a>
+                </h3>
+                <p class="related-product-price">{{ related_product.price }}€</p>
+            </div>
+        {% empty %}
+            <p class="no-related-products">Aucun produit similaire disponible.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

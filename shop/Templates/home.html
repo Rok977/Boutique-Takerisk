@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    
+{% endblock %}
+
+{% block content %}
+
+<section id="categories">
+    <div class="section-content">
+        <h3>Accédez à nos articles</h3>
+        <div class="category-scroll-container">
+            <div class="category-scroll">
+                <a href="{% url 'shop' %}?filter=sweatshirt" class="category-card sweatshirt">
+                    <span>Sweatshirts</span>
+                </a>
+                <a href="{% url 'shop' %}?filter=pants" class="category-card pants">
+                     <span>Pantalons</span>
+                </a>
+                <a href="{% url 'shop' %}?filter=cap" class="category-card cap">
+                    <span>Casquettes</span>
+                </a>
+                <a href="{% url 'shop' %}?filter=bags" class="category-card bags">
+                    <span>Sacs</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    
+    <section id="about">
+        <div class="section-content">
+            <h3>Qui sommes-nous ?</h3>
+            <blockquote>
+                <p>LE SUCCÈS APPARTIENT À CEUX QUI OSENT PENSER DIFFÉREMMENT.</p>
+                <cite>— Makavell</cite>
+            </blockquote>
+        </div>
+    
+        <!-- ✅ Bloc 1 : Texte -> Image -->
+        <div class="about-container">
+            <div class="about-text">
+                <h2>Notre Vision</h2>
+                <p>
+                    Chez TakeRisk, nous croyons que le style est une extension de la personnalité.  
+                    Notre marque est conçue pour ceux qui veulent s’affirmer, repousser les limites  
+                    et embrasser leur unicité à travers la mode.
+                </p>
+            </div>
+            <div class="about-image">
+                <img src="{% get_media_prefix %}about/Makavel.png" id= imgsize alt="Notre vision">
+            </div>
+        </div>
+    
+        <!-- ✅ Bloc 2 : Image -> Texte -->
+        <div class="about-container reverse">
+            <div class="about-image">
+                <img src="{% get_media_prefix %}about/phoenix.png" alt="Notre vision">
+                
+            </div>
+            <div class="about-text">
+                <h2>Nos Valeurs</h2>
+                <p>
+                    TakeRisk, c'est plus qu'une marque : c'est un état d'esprit.  
+                    Nous prônons l'authenticité, la créativité et la passion, en  
+                    nous inspirant de l’univers urbain et des pionniers qui osent innover.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section id="contact">
+        <div class="section-content">
+            <h3>Contactez-nous</h3>
+            <p>Un problème ? Une idée ? Une collaboration ? Contactez-nous !</p>
+            <form>
+                <input type="text" name="name" placeholder="Votre nom" required>
+                <input type="email" name="email" placeholder="Votre email" required>
+                <textarea name="message" placeholder="Votre message" required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </section>
+    
+
+
+{% endblock %}

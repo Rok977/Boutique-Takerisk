@@ -1,0 +1,8 @@
+from django.apps import AppConfig
+
+class ShopConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'shop'
+
+    def ready(self):
+        pass  # Supprime l'import de `shop.signals`

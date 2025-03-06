@@ -1,0 +1,164 @@
+{% load static %}
+{% load socialaccount %}
+{% csrf_token %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TakeRisk{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- CSS global -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <script src="{% static 'js/script.js' %}" defer></script>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    
+
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}fade{% endblock %}">
+    <form class="csrf-form">
+        {% csrf_token %}
+    </form>
+    
+
+    {% if not request.path == '/' %}
+    <header>
+        <nav class="nav-container">
+            <div class="nav-left">
+                <a href="{% url 'home' %}" class="logo">TAKERISK</a>
+            </div>
+        
+            <div class="nav-center">
+                <form method="GET" action="{% url 'shop' %}" class="search-container">
+                    <input type="text" name="q" placeholder="Rechercher un produit ou une catégorie..." value="{{ query|default:'' }}">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        
+            <div class="nav-right">
+                <div class="nav-shop">
+                    <a href="{% url 'shop' %}" id="cart-button">
+                        <i class="fas fa-store"></i> 
+                    </a>
+                </div>
+                
+                <div class="nav-cart">
+                <a href="{% url 'cart' %}" id="cart-button">
+                    <i class="fas fa-shopping-cart"></i> 
+                    <span id="cart-counter">0</span>
+                </a>
+                </div>
+                {% if user.is_authenticated %}
+
+                <div class="user-menu">
+                    
+                    <button id="userButton">
+                        <i class="fas fa-user"></i>
+                        <span>{{ user.email }}</span>
+                    </button>
+                    <div class="user-dropdown">
+                        <a href="{% url 'shop' %}" class="nav-button"><i class="fas fa-store"></i> Boutique</a>  
+                        <a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i> Mon Panier</a>
+                        <a href="{% url 'account' %}"><i class="fas fa-user"></i> Mon Compte</a>
+                        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                    </div>
+                </div>
+                {% else %}
+                <button id="openAuthPopup">Se connecter</button>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    {% endif %}
+
+    <main>
+        {% if request.path != '/shop/' %}
+            <div class="container">
+        {% endif %}
+    
+        {% block content %}{% endblock %}
+        
+        {% if request.path != '/shop/' %}
+            </div>
+        {% endif %}
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-separator"></div>
+            <p>© 2025 TakeRisk - Tous droits réservés.</p>
+
+            <nav class="footer-nav">
+                <a href="{% url 'about' %}">À propos</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                <a href="{% url 'shop' %}">Boutique</a>
+            </nav>
+
+            <div class="footer-socials">
+                <p>Suivez-nous :</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Pop-up de Connexion -->
+    <div id="authPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" data-popup="authPopup">&times;</span>
+            <h2>Connexion</h2>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Mot de passe" required>
+                <button type="submit">Se connecter</button>
+            </form>
+            <div class="social-login">
+                <a href="{% url 'account_login' %}?process=login&next={{ request.path }}">Connexion avec Google</a>
+            </div>
+            <p>Pas encore de compte ? <a href="#" id="openRegisterPopup">S'inscrire</a></p>
+        </div>
+    </div>
+
+    <!-- Pop-up d'Inscription -->
+    <div id="registerPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" data-popup="registerPopup">&times;</span>
+            <h2>Inscription</h2>
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password1" placeholder="Mot de passe" required>
+                <input type="password" name="password2" placeholder="Confirmer mot de passe" required>
+                <button type="submit">S'inscrire</button>
+            </form>
+            <p>Déjà un compte ? <a href="#" id="switchToLogin">Se connecter</a></p>
+        </div>
+    </div>
+
+    <!-- Pop-up de Message de Succès -->
+    <div id="successPopup" class="popup message-success">
+        <div class="popup-content">
+            <span class="close-btn" data-popup="successPopup">&times;</span>
+            <p>Votre action a été réalisée avec succès !</p>
+        </div>
+    </div>
+
+    <!-- Pop-up de Message d'Erreur -->
+    <div id="errorPopup" class="popup message-error">
+        <div class="popup-content">
+            <span class="close-btn" data-popup="errorPopup">&times;</span>
+            <p>Une erreur est survenue, veuillez réessayer.</p>
+        </div>
+    </div>
+
+</body>
+</html>

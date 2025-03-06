@@ -1,0 +1,141 @@
+/* ✅ Effet TV Glitch */
+body {
+    background: #0a0a0a;
+    color: white;
+    text-align: center;
+    font-family: "Arial", sans-serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    
+}
+
+
+
+/* ✅ Container général */
+.glitch-container {
+    position: relative;
+    z-index: 2;
+}
+/* ✅ TEXTE GLITCH INTENSE */
+.glitch-text {
+    font-size: 70px;
+    font-weight: 900;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: white;
+    animation: glitch-animation 0.8s infinite alternate;
+}
+
+/* ✅ Effet de décalage et superposition */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+}
+
+.glitch-text::before {
+    left: 3px;
+    text-shadow: -3px 0 red, 3px 0 blue;
+    animation: glitch-anim-before 0.3s infinite alternate;
+}
+
+.glitch-text::after {
+    left: -3px;
+    text-shadow: 3px 0 blue, -3px 0 red;
+    animation: glitch-anim-after 0.3s infinite alternate;
+}
+
+/* ✅ Animations améliorées pour un effet plus intense */
+@keyframes glitch-anim-before {
+    0% { clip: rect(5px, 9999px, 40px, 0); transform: skewX(-5deg); }
+    50% { clip: rect(15px, 9999px, 55px, 0); transform: skewX(5deg); }
+    100% { clip: rect(30px, 9999px, 80px, 0); transform: skewX(-5deg); }
+}
+
+@keyframes glitch-anim-after {
+    0% { clip: rect(10px, 9999px, 30px, 0); transform: skewX(5deg); }
+    50% { clip: rect(20px, 9999px, 70px, 0); transform: skewX(-5deg); }
+    100% { clip: rect(40px, 9999px, 100px, 0); transform: skewX(5deg); }
+}
+
+/* ✅ Ajout d'une vibration aléatoire */
+@keyframes glitch-animation {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-3px, 3px); }
+    50% { transform: translate(3px, -3px); }
+    75% { transform: translate(-3px, -3px); }
+    100% { transform: translate(3px, 3px); }
+}
+
+/* ✅ Sous-titre */
+.glitch-subtitle {
+    font-size: 20px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 10px;
+}
+
+/* ✅ Bouton glitch */
+.glitch-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #ff0000, #ff8c00);
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+
+}
+
+/* ✅ Effet de glitch au survol */
+.glitch-button:hover {
+    animation: glitch-hover 0.5s infinite;
+}
+
+@keyframes glitch-hover {
+    0% { transform: translateX(-2px) skewX(-5deg); }
+    25% { transform: translateX(2px) skewX(5deg); }
+    50% { transform: translateX(-2px) skewX(-5deg); }
+    75% { transform: translateX(2px) skewX(5deg); }
+    100% { transform: translateX(0) skewX(0); }
+}
+
+/* ✅ Fond TV glitch */
+.glitch-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://media.giphy.com/media/pQyBc7MwzjW00/giphy.gif?cid=790b7611oz5cmnz9kvaet6j2xepoqj3l7669u429d2tm098i&ep=v1_gifs_search&rid=giphy.gif&ct=g");
+    opacity: 0.1;
+    mix-blend-mode: overlay;
+    z-index: 1;
+}
+
+/* ✅ Responsive */
+@media (max-width: 768px) {
+    .glitch-text {
+        font-size: 50px;
+    }
+
+    .glitch-button {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+}

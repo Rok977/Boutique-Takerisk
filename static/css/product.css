@@ -1,0 +1,168 @@
+/* ✅ IMAGE PRODUIT */
+.product-gallery {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-gallery img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ✅ INFO PRODUIT */
+.product-info-container {
+    padding: 20px;
+    color: #ffffff;
+}
+
+.product-title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.product-description {
+    font-size: 16px;
+    color: #bbbbbb;
+}
+.product-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-price {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
+  ;
+}
+
+
+
+/* ✅ GESTION DU STOCK */
+.product-stock {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.product-stock.available {
+    color: #5fb24b;
+}
+
+.product-stock.out-of-stock {
+    color: #d23535;
+}
+
+/* ✅ BOUTON AJOUTER AU PANIER */
+
+
+/* ✅ BOUTONS DE PARTAGE */
+.product-share {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-share p {
+    margin: 0;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.product-share a {
+    font-size: 24px;
+    color: #bbbbbb;
+    transition: 0.3s;
+}
+
+.product-share a:hover {
+    color: #0073ff;
+}
+
+/* ✅ AVIS CLIENTS */
+.reviews-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+}
+
+.section-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.review-box {
+    padding: 10px;
+    background: #333;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.review-form {
+    margin-top: 20px;
+}
+
+.review-select {
+    padding: 10px;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+}
+
+.review-textarea {
+    width: 100%;
+    height: 100px;
+    background: #333;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+
+
+/* ✅ PRODUITS SIMILAIRES */
+.related-products-container {
+    margin-top: 50px;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.related-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.related-product-card {
+    background: #333;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.related-product-title a {
+    color: white;
+    text-decoration: none;
+}
+
+.related-product-price {
+    color: linear-gradient(90deg, #1E90FF, #0066FF);
+    font-weight: bold;
+}
+
+#quantity-input {
+    width: auto !important;  /* ✅ Supprime l'héritage en forçant la largeur */
+
+}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Connexion - TakeRisk{% endblock %}
+{% load static %}
+{% block content %}
+<h1>Connexion</h1>
+{% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+<form method="POST" action="{% url 'login' %}" class="ajax-form">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Mot de passe" required>
+    <button type="submit">Se connecter</button>
+</form>
+
+{% endblock %}

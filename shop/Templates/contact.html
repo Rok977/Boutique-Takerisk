@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Nous contacter - TakeRisk{% endblock %}
+{% load static %}
+{% block content %}
+<section class="contact">
+    <h1>Contactez-nous</h1>
+    <form action="#" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Votre nom" required>
+        <input type="email" name="email" placeholder="Votre email" required>
+        <textarea name="message" placeholder="Votre message"></textarea>
+        <button type="submit">Envoyer</button>
+    </form>
+</section>
+{% endblock %}

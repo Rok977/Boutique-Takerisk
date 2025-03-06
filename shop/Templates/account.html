@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Mon Compte{% endblock %}
+{% load static %}
+<script src="{% static 'js/script.js' %}" defer></script>
+
+{% block content %}
+<div class="account-container">
+    <h2>MON COMPTE</h2>
+    <hr>
+
+    <!-- ✅ Pop-up de succès -->
+    <div id="success-popup" class="popup" style="display: none;">
+        <p>Mise à jour réussie !</p>
+    
+    </div>
+
+    <!-- ✅ Pop-up d'erreur -->
+    <div id="error-popup" class="popup error-popup" style="display: none;">
+        <p id="error-message">Une erreur est survenue lors de la mise à jour.</p>
+       
+    </div>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- ✅ Modifier l'email -->
+    <div class="account-section">
+        <h3>Mon adresse mail</h3>
+        <p id="email-text" class="editable-text">{{ user.email }}</p>
+        <button class="edit-btn" data-form="email-form">Modifier</button>
+
+        <form id="email-form" method="POST" class="ajax-form">
+            {% csrf_token %}
+            <input type="email" name="email" value="{{ user.email }}" required>
+            <button type="submit">Enregistrer</button>
+        </form>
+    </div>
+
+    <!-- ✅ Modifier l'adresse de facturation -->
+    <div class="account-section">
+        <h3>Adresse de facturation</h3>
+        <p id="address-text">
+            {% if user.address and user.city %}
+                {{ user.address }}, {{ user.city }}
+            {% else %}
+                <em>Adresse non renseignée</em>
+            {% endif %}
+        </p>
+        <button class="edit-btn" data-form="address-form">Modifier</button>
+
+        <form id="address-form" method="POST" class="ajax-form">
+            {% csrf_token %}
+            <label>Adresse</label>
+            <input type="text" name="address" value="{{ user.address|default:'' }}" required>
+
+            <label>Ville</label>
+            <input type="text" name="city" value="{{ user.city|default:'' }}" required>
+
+            <button type="submit">Enregistrer</button>
+        </form>
+    </div>
+
+    <!-- ✅ Modifier le mot de passe -->
+    <div class="account-section">
+        <h3>Changer mon mot de passe</h3>
+        <button class="edit-btn" data-form="password-form">Modifier</button>
+
+        <form id="password-form" method="POST" class="ajax-form">
+            {% csrf_token %}
+            <input type="password" name="current_password" placeholder="Mot de passe actuel" required>
+            <input type="password" name="new_password" placeholder="Nouveau mot de passe" required>
+            <input type="password" name="confirm_password" placeholder="Confirmer mot de passe" required>
+            <button type="submit">Enregistrer</button>
+        </form>
+    </div>
+
+    <!-- ✅ Historique des achats -->
+    <div class="account-section">
+        <h3>Historique des achats</h3>
+        {% if orders %}
+            <table class="order-history-table">
+                <thead>
+                    <tr>
+                        <th>ID Commande</th>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix total</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.product.name }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.total_price }} €</td>
+                        <td>{{ order.date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune commande passée pour le moment.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

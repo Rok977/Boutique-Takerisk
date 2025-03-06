@@ -1,0 +1,82 @@
+/* ✅ Conteneur principal */
+.cart-container {
+    max-width: 800px;
+    padding: 20px;
+    background: transparent;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.cart-divider {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #1E90FF, #0066FF);; /* Dégradé stylé */
+    margin: 15px 0; /* Espacement */
+    border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15); /* Ombre encore plus subtile */
+
+}
+
+
+/* ✅ Liste des articles */
+.cart-items {
+    margin-top: 20px;
+}
+
+.cart-summary {
+    margin-top: 40vh;
+    background: #303030;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    flex-direction:row;
+    justify-content: space-between;
+    background: #dcdcdc;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.cart-item-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.cart-item-details {
+    flex: 1;
+    margin-left: 15px;
+    text-align: left;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction:row;
+}
+
+/* ✅ Boutons quantité */
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.quantity-control input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+}
+
+/* ✅ Bouton paiement */

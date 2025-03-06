@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+<form class="csrf-form">
+    {% csrf_token %}
+</form>
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/boutique.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="shop-container">
+<!-- ✅ FILTRE À GAUCHE -->
+<div class="filter-container">
+    <h3>Filtrer</h3>
+
+    <!-- ✅ Filtres Catégories (Accordéon) -->
+    <div class="filter-section">
+        <h4 class="accordion-header">Catégories</h4>
+        <ul class="accordion-content">
+            {% for category in categories %}
+            <li>
+                <button type="button" class="filter-btn" data-filter="category" data-value="{{ category.id }}">
+                    {{ category.name }}
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- ✅ Filtres Couleurs (Accordéon) -->
+    <div class="filter-section">
+        <h4 class="accordion-header">Couleurs</h4>
+        <ul class="accordion-content">
+            {% for color in colors %}
+            <li>
+                <button type="button" class="filter-btn" data-filter="color" data-value="{{ color.id }}">
+                    {{ color.name }}
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- ✅ Filtres Tailles (Accordéon) -->
+    <div class="filter-section">
+        <h4 class="accordion-header">Tailles</h4>
+        <ul class="accordion-content">
+            {% for size in sizes %}
+            <li>
+                <button type="button" class="filter-btn" data-filter="size" data-value="{{ size.id }}">
+                    {{ size.name }}
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+    <!-- ✅ CONTENU PRINCIPAL -->
+    <div class="page-container">
+        {% if query %}
+            <h2>Résultats de recherche pour "{{ query }}"</h2>
+        {% endif %}
+        <h2>Boutique</h2>
+        <div id="products-list" class="product-grid">
+            {% for product in products %}
+            <div class="product-card" data-category="{{ product.category.name }}" data-color="{{ product.color.name }}" data-size="{{ product.size.name }}">
+                <a href="{% url 'product_detail' product.id %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                </a>
+                <h3><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h3>
+                <p class="price">{{ product.price }}€</p>
+                <p>Couleur: {{ product.color.name }}</p>
+
+                <button class="buy-btn add-to-cart" data-product-id="{{ product.id }}">
+                    Ajouter au panier (ID: {{ product.id }})
+                </button>
+            </div>
+            {% empty %}
+            <p>Aucun article disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
