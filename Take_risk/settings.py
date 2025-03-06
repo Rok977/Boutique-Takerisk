@@ -78,7 +78,8 @@ ROOT_URLCONF = 'Take_risk.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # ✅ Chemin des templates,
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),  # Si un dossier templates global existe
+            os.path.join(BASE_DIR, 'shop', 'templates')],  # ✅ On force Django à voir shop/templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
