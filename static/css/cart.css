@@ -8,6 +8,7 @@
     flex-direction: column;
     justify-content: flex-start;
     flex-wrap: wrap;
+    box-shadow: none;
 }
 
 .cart-divider {
@@ -41,7 +42,7 @@
     align-items: center;
     flex-direction:row;
     justify-content: space-between;
-    background: #dcdcdc;
+    background: #080808;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
