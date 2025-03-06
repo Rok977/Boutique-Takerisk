@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '9f29-2a02-1808-205-22ed-21c1-e46b-3567-2e5e.ngrok-free.app',
     'massive-totally-wildcat.ngrok-free.app',
+    "boutique-takerisk.onrender.com",
 
 ]
 
