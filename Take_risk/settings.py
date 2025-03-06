@@ -78,7 +78,7 @@ ROOT_URLCONF = 'Take_risk.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'shop' / 'templates', ],  # ✅ On force Django à voir shop/templates
+        'DIRS': [BASE_DIR / 'shop' / 'templates' ],  # ✅ On force Django à voir shop/templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
