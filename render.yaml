@@ -1,0 +1,22 @@
+databases:
+  - name: takeriskdb          # Nom de la base de données sur Render
+    plan: free                # Plan gratuit (tu peux aussi utiliser un plan payant)
+    databaseName: takerisk    # Nom de la base de données à utiliser
+    user: takerisk_user       # Nom de l'utilisateur de la base de données
+
+services:
+  - type: web
+    plan: free                # Plan gratuit pour le service web
+    name: takerisk-web        # Nom du service
+    runtime: python           # Langage de programmation (Python)
+    buildCommand: "./build.sh"  # Commande de construction pour déployer ton projet (si tu en as une)
+    startCommand: "gunicorn Take_risk.wsgi:application --bind 0.0.0.0:$PORT"  # Commande pour démarrer ton app Django avec Gunicorn
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: takeriskdb    # Utilise le nom de ta base de données
+          property: connectionString  # Cette propriété sera utilisée pour connecter Django à PostgreSQL
+      - key: SECRET_KEY
+        generateValue: true     # Génère une clé secrète pour ton projet
+      - key: WEB_CONCURRENCY
+        value: 4                # Définis le nombre de workers pour Gunicorn
