@@ -10,7 +10,8 @@ services:
     name: takerisk-web        # Nom du service
     runtime: python           # Langage de programmation (Python)
     buildCommand: "./build.sh"  # Commande de construction pour déployer ton projet (si tu en as une)
-    startCommand: "waitress-serve --listen=*:8000 Take_risk.wsgi:application"  # Utilise waitress
+    startCommand: "gunicorn Take_risk.wsgi:application --bind 0.0.0.0:$PORT"  # Utilise gunicorn en production
+ # Utilise waitress
 
     envVars:
       - key: DATABASE_URL
