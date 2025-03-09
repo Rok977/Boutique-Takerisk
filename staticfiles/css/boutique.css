@@ -1,0 +1,174 @@
+/* ✅ CONTAINER GÉNÉRAL */
+.shop-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 1300px;
+    margin: 50px auto;
+    padding: 20px;
+    gap: 40px; /* Augmente l’espace entre le filtre et la boutique */
+}
+
+/* ✅ FILTRE À GAUCHE */
+.filter-container {
+    width: 250px;
+    background: #121212;
+    padding: 20px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    margin-top: 11vh;
+}
+
+.page-container h2{
+
+margin-bottom: 5vh; }
+
+/* ✅ TITRES DES FILTRES */
+.filter-container h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ✅ SECTION DES FILTRES */
+.filter-section {
+    margin-bottom: 15px;
+}
+
+.filter-section h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.filter-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.filter-section li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* ✅ Ajuste les cases à cocher */
+.filter-section input[type="checkbox"] {
+    transform: scale(1.2);
+}
+
+/* ✅ CONTENU PRINCIPAL CENTRÉ */
+.page-container {
+    flex: 1;
+    background: transparent;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    box-shadow: none;
+}
+
+/* ✅ GRID DES PRODUITS */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch; /* 🔥 Force toutes les cartes produits à avoir la même hauteur */
+}
+
+/* ✅ CARTES PRODUIT */
+
+
+.product-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.product-card h3 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.price {
+    font-size: 14px;
+    color: #4f72a3;
+    margin: 10px 0;
+}
+
+
+
+
+
+.accordion-header {
+    background: #1E1E1E;
+    color: #a7a7a7;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: #2a2a2a;
+}
+
+.accordion-content {
+    display: none; /* ✅ Caché par défaut */
+    padding: 10px;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.accordion-content li {
+    list-style: none;
+    display: flex;
+        justify-content: center;
+        flex-direction: row-reverse;
+        align-items: center;
+}
+
+/* ✅ BOUTONS DE FILTRE */
+.filter-btn {
+    background: transparent;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease-in-out;
+    width: 100%;
+    text-align: center;
+}
+
+.filter-btn:hover {
+    background: #2a2a2a;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn.active {
+    background: linear-gradient(90deg, #1E90FF, #0066FF);
+    color: white;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Ciblage précis de l'input dans .quantity-container */
+.product-card a {
+    color: #585858 ;  /* ✅ Reste blanc même après visite */
+    text-decoration: none;  /* ✅ Supprime le soulignement */
+    transition: color 0.3s ease-in-out;
+}
+.product-card a:hover {
+    color: #585858 !important;  /* ✅ Reste blanc même après clic */
+    text-decoration: none;  /* ✅ Assure qu'il reste sans soulignement */
+}
+.product-card a:visited {
+    color: #585858 !important;  /* ✅ Reste blanc même après clic */
+    text-decoration: none;  /* ✅ Supprime le soulignement après visite */
+}
