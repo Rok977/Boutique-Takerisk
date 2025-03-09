@@ -85,7 +85,7 @@ TEMPLATES = [
 
         'DIRS': [BASE_DIR / 'shop' / 'templates' ],  # ✅ On force Django à voir shop/templates
 
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
