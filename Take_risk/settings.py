@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
     'massive-totally-wildcat.ngrok-free.app',
     'takerisk-web.onrender.com',     # Hôte Render pour la production
     'boutique-takerisk.onrender.com', 
+    'takerisk-34aa1e4960dc.herokuapp.com' ,
 
 
 ]
