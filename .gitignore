@@ -1,5 +1,5 @@
 # Ignore l'environnement virtuel
-venv/
+
 
 # Ignore les fichiers de base de données SQLite
 db.sqlite3
