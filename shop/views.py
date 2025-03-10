@@ -80,7 +80,7 @@ def shop_view(request):
         products = products.filter(name__icontains=query)
         categories = categories.filter(name__icontains=query)
     
-    return render(request, 'shop/shop.html', {
+    return render(request, 'shop.html', {
         'query': query,
         'products': products,
         'categories': categories
