@@ -234,6 +234,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     
+
+
+
     // ========================
     // 🔹 GESTION DES POPUPS 🔹
     // ========================
@@ -303,10 +306,9 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("black-screen").classList.remove("active");
         }
     });
-
     // ========================
-    // 🔹 GESTION DES FILTRES AVEC BOUTONS 🔹
-    // ========================
+// 🔹 GESTION DES FILTRES AVEC BOUTONS 🔹
+// ========================
     const filterButtons = document.querySelectorAll(".filter-btn");
 
     filterButtons.forEach(button => {
@@ -437,6 +439,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     applyURLFilters(); // ✅ Appliquer les filtres au chargement de la page
 
+
+
     // ========================
     // 🔹 ACCORDEON  🔹
     // ========================
@@ -453,47 +457,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ========================
-    // 🔹 SYNCHRONISATION DU PANIER 🔹
-    // ========================
-    function syncCartAfterLogin() {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        if (cart.length > 0) {
-            fetch("/sync-cart/", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": getCSRFToken(),
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ cart: cart })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "success") {
-                    localStorage.removeItem("cart"); // Supprimer le panier local après synchronisation
-                    updateCartCounter();
-                }
-            })
-            .catch(error => {
-                console.error("❌ Erreur AJAX :", error);
-            });
-        }
-    }
-
-    // Appeler cette fonction après une connexion réussie
-    syncCartAfterLogin();
-
-    // ========================
-    // 🔹 ANIMATION D'INTRODUCTION 🔹
-    // ========================
-    const intro = document.querySelector(".glitch-container");
-    intro.style.opacity = "0";
-    intro.style.transform = "translateY(50px)";
+ 
+        const intro = document.querySelector(".glitch-container");
+        intro.style.opacity = "0";
+        intro.style.transform = "translateY(50px)";
+        
+        setTimeout(() => {
+            intro.style.opacity = "1";
+            intro.style.transform = "translateY(0)";
+            intro.style.transition = "opacity 1s ease-out, transform 1s ease-out";
+        }, 300);
     
-    setTimeout(() => {
-        intro.style.opacity = "1";
-        intro.style.transform = "translateY(0)";
-        intro.style.transition = "opacity 1s ease-out, transform 1s ease-out";
-    }, 300);
 });
