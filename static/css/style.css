@@ -793,3 +793,61 @@ button:hover {
         max-width: 100%;
     }
 }
+
+/* ✅ Style du pop-up de connexion */
+#authPopup {
+    background: #1E1E1E; /* Fond noir */
+    color: white; /* Texte blanc */
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    width: 350px;
+    text-align: center;
+}
+
+#authPopup h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+#authPopup input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+}
+
+#authPopup input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#authPopup button {
+    background: linear-gradient(90deg, #1E90FF, #0066FF);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#authPopup button:hover {
+    background: linear-gradient(90deg, #0066FF, #0044CC);
+    transform: scale(1.05);
+}
+
+#authPopup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
