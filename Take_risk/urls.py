@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('shop.urls')),  # Lier l’App shop
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),  # Logout
     path('accounts/', include('allauth.urls')),  # URLs de Django-Allauth
+    
 ]
 
 # Permettre l'affichage des fichiers médias (images)
