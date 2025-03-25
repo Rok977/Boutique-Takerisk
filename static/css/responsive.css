@@ -1,8 +1,13 @@
-/* ============================= */
-/* 🔹 RESPONSIVE DESIGN GLOBAL 🔹 */
-/* ============================= */
+/* ============================================= */
+/* responsive.css - Version optimisée            */
+/* Navbar mobile améliorée                       */
+/* Breakpoints :                                */
+/* - Mobile : ≤ 767px                           */
+/* - Tablette : 768px → 991px                   */
+/* - Desktop : ≥ 992px                          */
+/* ============================================= */
 
-/* ✅ Règles générales pour l'adaptabilité */
+/* ============ RÉGLAGES GÉNÉRAUX ============ */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,341 +19,191 @@ html, body {
     overflow-x: hidden;
 }
 
-/* ✅ Conteneur principal adaptable */
-.container, .page-container, .cart-container, .shop-container {
+/* ============ CONTENEURS PRINCIPAUX ============ */
+.container,
+.page-container,
+.cart-container,
+.shop-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 100px 20px 20px; /* ✅ Augmentation de l'espace en haut pour éviter que la nav recouvre le titre */
-    min-height: 80vh; /* ✅ Ajustement pour éviter que le footer chevauche le contenu */
-}
-
-/* ✅ Fixe les largeurs globales pour éviter les conflits */
-.shop-container, .cart-container {
-    max-width: 1300px;
-    padding: 20px;
+    padding: 100px 20px 20px;
     min-height: 80vh;
 }
 
-/* ============================= */
-/* 🔹 NAVIGATION MOBILE 🔹 */
-/* ============================= */
-
-@media (max-width: 768px) {
-    .nav-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px; /* ✅ Hauteur ajustée pour une meilleure ergonomie */
-        background: #222;
-        z-index: 1000;
-        padding: 5px 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-left, .nav-right {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .nav-center {
-        flex: 2;
-        display: flex;
-        justify-content: center;
-    }
-
-    /* ✅ Menu Burger pour la navigation mobile */
-    .menu-toggle {
-        display: block;
-        font-size: 24px;
-        cursor: pointer;
-        color: white;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background: #222;
-        width: 100%;
-        text-align: center;
-        padding: 15px 0;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    /* ✅ Conteneur Scrollable pour les catégories */
-    .category-scroll-container {
-        overflow-x: auto;  /* ✅ Permet le scroll horizontal */
-        white-space: nowrap;  /* ✅ Force l'affichage en ligne */
-        padding: 10px 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    /* ✅ Catégories affichées en ligne */
-    .category-scroll {
-        display: flex;
-        gap: 15px; /* ✅ Espacement entre les cartes */
-        padding: 10px;
-        scroll-behavior: smooth;
-    }
-
-    /* ✅ Formulaire Responsive */
-    form {
-        width: 90%;
-        max-width: 400px;
-        background: rgba(255, 255, 255, 0.05);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    /* ✅ Inputs Responsives */
-    input, textarea {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #888;
-        border-radius: 5px;
-        font-size: 1rem;
-    }
-
-    /* ✅ Placeholder */
-    input::placeholder, textarea::placeholder {
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* ✅ Cartes de catégories */
-    .category-card {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 160px;
-        height: 90px;
-        background: #222;
-        border-radius: 10px;
-        text-align: center;
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 14px;
-        background-size: cover;
-        background-position: center;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    /* ✅ Effet au survol */
-    .category-card:hover {
-        transform: scale(1.05);
-    }
-
-    /* ✅ Scrollable sur mobile uniquement */
-    .category-scroll-container {
-        overflow-x: scroll;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .category-card {
-        scroll-snap-align: center;
-    }
-}
-
-/* ============================= */
-/* 🔹 SHOP DESIGN 🔹 */
-/* ============================= */
-
-.shop-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 20px;
-}
-
-.filter-container {
-    width: 100%;
-    max-width: 300px;
-    background: #f5f5f5;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 20px;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-/* ============================= */
-/* 🔹 CART DESIGN 🔹 */
-/* ============================= */
-
+.shop-container,
 .cart-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    max-width: 1300px;
+    padding: 20px;
 }
 
-.cart-summary {
-    margin-top: 20px;
-    padding: 15px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* ✅ Barre de séparation stylisée */
-.cart-divider {
+/* ============ NAVIGATION ============ */
+.nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 3px;
-    background: linear-gradient(to right, #ff8c00, #ff4500);
-    margin: 15px 0;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* ✅ Style des articles du panier */
-.cart-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    margin-bottom: 10px;
-}
-
-.cart-item-img {
-    width: 60px;
     height: 60px;
-    border-radius: 5px;
-    object-fit: cover;
-}
-
-.cart-item-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-/* ✅ Style des boutons quantité */
-.quantity-control {
-    display: flex;
-    gap: 5px;
-}
-
-.quantity-control button {
-    background: #333;
-    color: white;
+    background: #222;
+    z-index: 1000;
     padding: 5px 10px;
-    border-radius: 3px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left,
+.nav-right,
+.nav-center {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left { justify-content: flex-start; }
+.nav-center { justify-content: center; }
+.nav-right { justify-content: flex-end; }
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
     cursor: pointer;
-}
-
-.quantity-control input {
-    width: 35px;
-    text-align: center;
-    border: 1px solid #ccc;
-}
-
-/* ✅ Bouton de paiement */
-.checkout-btn {
-    background: orange;
     color: white;
-    font-weight: bold;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 10px;
+}
+
+.nav-links {
+    display: flex;
+}
+
+.category-scroll-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
 }
 
-.checkout-btn:hover {
-    background: darkorange;
+.category-scroll {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
 }
 
-/* ============================= */
-/* 🔹 RESPONSIVE DESIGN 🔹 */
-/* ============================= */
-
-@media (max-width: 768px) {
+/* ============ VERSION MOBILE (≤ 767px) ============ */
+@media (max-width: 767px) {
+    /* CONTENEURS */
+    .container,
+    .page-container,
+    .cart-container,
     .shop-container {
-        flex-direction: column;
-        align-items: center;
+        padding-top: 80px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
-    .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    }
-
-    .cart-item {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .cart-item img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .cart-summary {
-        padding: 10px;
-    }
-
-    .checkout-btn {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
-
-    /* ✅ Navbar Fixe et Compacte */
+    /* NAVIGATION OPTIMISÉE */
     .nav-container {
-        height: 60px; /* ✅ Hauteur ajustée pour une meilleure ergonomie */
+        padding: 0 15px;
+    }
+
+    .nav-left, 
+    .nav-center, 
+    .nav-right {
+        flex: unset;
+        width: auto;
+    }
+
+    .logo a {
+        font-size: 20px;
+        white-space: nowrap;
     }
 
     .nav-cart {
-        margin: auto;
+        margin-right: 0;
     }
 
-    /* ✅ Ajustement de la taille du logo */
-    .logo a {
-        font-size: 22px;
-        font-weight: bold;
-        color: #ff8c00;
-        text-decoration: none;
+    #cart-button {
+        padding: 8px 12px;
+        font-size: 14px;
     }
 
-    /* ✅ Ajustement de la taille des liens */
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background: #222;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-    }
-
-    .nav-links.active {
-        display: flex;
+    #cart-counter {
+        top: -3px;
+        right: -5px;
+        padding: 2px 5px;
+        font-size: 10px;
     }
 
     .menu-toggle {
         display: block;
+        order: -1; /* Place à gauche */
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #222;
+        flex-direction: column;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .nav-links.active {
+        max-height: 400px;
+        padding: 10px 0;
+        overflow-y: auto;
+    }
+
+    .nav-links a {
+        padding: 12px 20px;
+        border-bottom: 1px solid #333;
+        display: block;
+    }
+
+    /* CATÉGORIES */
+    .category-scroll-container {
+        margin-top: 5px;
+        padding: 8px 15px;
+    }
+
+    .category-card {
+        width: 120px;
+        height: 70px;
+        font-size: 12px;
+        scroll-snap-align: start;
+    }
+
+    /* BOUTIQUE */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* PANIER */
+    .cart-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .cart-item-details {
+        margin-top: 10px;
+        align-items: center;
+    }
+}
+
+/* ============ VERSION TABLETTE (768px → 991px) ============ */
+@media (min-width: 768px) and (max-width: 991px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .category-card {
+        width: 160px;
+        height: 90px;
     }
 }
