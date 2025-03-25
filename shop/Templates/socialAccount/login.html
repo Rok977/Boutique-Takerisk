@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Connexion - TakeRisk{% endblock %}
+{% block content %}
+<div class="login-container">
+    <h1>Connexion</h1>
+    {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <button type="submit">Se connecter</button>
+    </form>
+    <!-- Bouton personnalisé pour Google -->
+    <a href="{% provider_login_url 'google' %}" class="btn-google">
+        <img src="{% static 'img/google-logo.png' %}" alt="Logo Google"> Se connecter avec Google
+    </a>
+</div>
+{% endblock %}

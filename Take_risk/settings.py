@@ -13,12 +13,22 @@ import os
 import dj_database_url
 from pathlib import Path
 from stripe.error import StripeError
+from google.oauth2 import service_account
 from dotenv import load_dotenv
 load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, "key.json")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
+
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    GOOGLE_APPLICATION_CREDENTIALS
+)
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME")  # À définir dans votre .env par exemple
 
 
 # Quick-start development settings - unsuitable for production
@@ -62,7 +72,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',  # Google login
+    'allauth.socialaccount.providers.google',
+    'storages',  # Google login
 ]
 
 MIDDLEWARE = [
@@ -185,7 +196,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 # Configuration des fichiers médias
-MEDIA_URL = '/media/'
+
+
+
+
+# URL publique pour accéder aux fichiers médias
+MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Stockage des images dans media/
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
