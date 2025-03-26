@@ -15,21 +15,34 @@ from pathlib import Path
 from stripe.error import StripeError
 from google.oauth2 import service_account
 from dotenv import load_dotenv
-load_dotenv()
+import tempfile
 
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, "key.json")
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
+
+# Si la variable d'environnement GOOGLE_APPLICATION_CREDENTIALS_JSON est définie,
+# nous créons un fichier temporaire contenant les credentials (pour Heroku par exemple)
+json_credentials = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+if json_credentials:
+    temp_file = tempfile.NamedTemporaryFile(delete=False, mode='w', encoding='utf-8', suffix='.json')
+    temp_file.write(json_credentials)
+    temp_file.flush()
+    temp_file.close()
+    GOOGLE_APPLICATION_CREDENTIALS = temp_file.name
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
+else:
+    # Sinon, nous utilisons le fichier local key.json (développement)
+    GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, "key.json")
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     GOOGLE_APPLICATION_CREDENTIALS
 )
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME")  # À définir dans votre .env par exemple
-
+GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME")  # À définir dans votre .env
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -48,16 +61,15 @@ ALLOWED_HOSTS = [
     'massive-totally-wildcat.ngrok-free.app',
     'takerisk-web.onrender.com',     # Hôte Render pour la production
     'boutique-takerisk.onrender.com', 
-    'takerisk-34aa1e4960dc.herokuapp.com' ,
-
-
+    'takerisk-34aa1e4960dc.herokuapp.com',
 ]
 
-# settings.py
+# Stripe configuration
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_SUCCESS_URL = os.getenv("STRIPE_SUCCESS_URL", "http://127.0.0.1:8000/success/")
 STRIPE_CANCEL_URL = os.getenv("STRIPE_CANCEL_URL", "http://127.0.0.1:8000/cancel/")
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -73,7 +85,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'storages',  # Google login
+    'storages',  # Pour utiliser GCS
 ]
 
 MIDDLEWARE = [
@@ -86,7 +98,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-
 ]
 
 ROOT_URLCONF = 'Take_risk.urls'
@@ -94,9 +105,7 @@ ROOT_URLCONF = 'Take_risk.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
-        'DIRS': [BASE_DIR / 'shop' / 'Templates' ],  # ✅ On force Django à voir shop/templates
-
+        'DIRS': [BASE_DIR / 'shop' / 'Templates'],  # Forcer Django à voir shop/templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,12 +120,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Take_risk.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-
-# Vérification de l'environnement (local ou production)
 if os.getenv('DJANGO_ENV') == 'PRODUCTION':
     DATABASES = {
         'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))  # PostgreSQL en production
@@ -129,23 +135,17 @@ else:
         }
     }
 
-
-
-
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-AUTH_USER_MODEL = "shop.CustomUser"  # ✅ Remplace User par CustomUser
+AUTH_USER_MODEL = "shop.CustomUser"  # Remplacer User par CustomUser
 SITE_ID = 2
 ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = "optional"
-LOGIN_REDIRECT_URL = "/home/"  # Redirige vers la page d'accueil après connexion
-LOGOUT_REDIRECT_URL = "/home/"  # 🔥 Redirige après déconnexion
-
-
-
+LOGIN_REDIRECT_URL = "/home/"  # Rediriger vers la page d'accueil après connexion
+LOGOUT_REDIRECT_URL = "/home/"  # Rediriger après déconnexion
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -164,55 +164,38 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-CSRF_COOKIE_SECURE = False  # ⚠️ Mettre True en production avec HTTPS
+CSRF_COOKIE_SECURE = False  # Mettre True en production avec HTTPS
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = "Lax"
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:8000",  # 🔹 Ajoute ton domaine local
+    "http://127.0.0.1:8000",
     "http://localhost:8000",
     "https://9f29-2a02-1808-205-22ed-21c1-e46b-3567-2e5e.ngrok-free.app",
     "https://massive-totally-wildcat.ngrok-free.app/",
     "http://127.0.0.1:80",
     "http://localhost:80",
-
 ]
 
 SESSION_COOKIE_SECURE = False
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-# Configuration des fichiers médias
-
-
-
-
-# URL publique pour accéder aux fichiers médias
-MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Stockage des images dans media/
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Assure-toi que Django reconnaît le dossier static
+    os.path.join(BASE_DIR, 'static'),
 ]
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+# Configuration des fichiers médias
+MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
