@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TakeRisk - Shop</title>
+  <link rel="stylesheet" href="testnav.css">
+  <link rel="stylesheet" href="testshop.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="shop-page">
+  <nav class="nav-container">
+    <div class="nav-logo">TAKERISK</div>
+    <div class="nav-menu">
+      <a href="#categories"><i class="fas fa-tshirt"></i> Collection</a>
+      <a href="#about"><i class="fas fa-info-circle"></i> À propos</a>
+      <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-counter">0</span>
+      </a>
+      <a href="#" class="nav-user">
+        <i class="fas fa-user"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section Shop -->
+  <section class="shop-hero">
+    <div class="shop-hero-content">
+      <h1>SNEAKERS</h1>
+      <p>Découvrez notre collection exclusive de sneakers</p>
+    </div>
+  </section>
+
+  <!-- Filtres et tri -->
+  <section class="shop-controls">
+    <div class="filters-container">
+      <button class="filter-btn active">Tous</button>
+      <button class="filter-btn">Nouveautés</button>
+      <button class="filter-btn">Best-sellers</button>
+      <button class="filter-btn">Édition limitée</button>
+      
+      <div class="sort-container">
+        <label for="sort">Trier par :</label>
+        <select id="sort">
+          <option value="popular">Popularité</option>
+          <option value="price-asc">Prix croissant</option>
+          <option value="price-desc">Prix décroissant</option>
+          <option value="newest">Nouveautés</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Produits -->
+  <section class="shop-products">
+    <div class="product-grid">
+      <!-- Produit 1 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://via.placeholder.com/400x400" alt="Sneaker TakeRisk 1">
+          <div class="product-badge new">Nouveau</div>
+          <div class="product-actions">
+            <button class="quick-view">Voir</button>
+            <button class="add-to-wishlist"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">TakeRisk Shadow</h3>
+          <p class="product-description">Sneaker en cuir noir avec détails métalliques</p>
+          <div class="product-price">€249.00</div>
+          <button class="add-to-cart">Ajouter au panier</button>
+        </div>
+      </div>
+
+      <!-- Produit 2 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://via.placeholder.com/400x400" alt="Sneaker TakeRisk 2">
+          <div class="product-badge limited">Limitée</div>
+          <div class="product-actions">
+            <button class="quick-view">Voir</button>
+            <button class="add-to-wishlist"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">TakeRisk Phantom</h3>
+          <p class="product-description">Edition limitée - 100 pièces seulement</p>
+          <div class="product-price">€349.00</div>
+          <button class="add-to-cart">Ajouter au panier</button>
+        </div>
+      </div>
+
+      <!-- Produit 3 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://via.placeholder.com/400x400" alt="Sneaker TakeRisk 3">
+          <div class="product-actions">
+            <button class="quick-view">Voir</button>
+            <button class="add-to-wishlist"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">TakeRisk Urban</h3>
+          <p class="product-description">Confort maximal pour la ville</p>
+          <div class="product-price">€199.00</div>
+          <button class="add-to-cart">Ajouter au panier</button>
+        </div>
+      </div>
+
+      <!-- Produit 4 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://via.placeholder.com/400x400" alt="Sneaker TakeRisk 4">
+          <div class="product-badge sale">-20%</div>
+          <div class="product-actions">
+            <button class="quick-view">Voir</button>
+            <button class="add-to-wishlist"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">TakeRisk Classic</h3>
+          <p class="product-description">Le modèle iconique réinventé</p>
+          <div class="product-price">
+            <span class="original-price">€299.00</span>
+            <span class="sale-price">€239.20</span>
+          </div>
+          <button class="add-to-cart">Ajouter au panier</button>
+        </div>
+      </div>
+
+      <!-- Produit 5 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://via.placeholder.com/400x400" alt="Sneaker TakeRisk 5">
+          <div class="product-actions">
+            <button class="quick-view">Voir</button>
+            <button class="add-to-wishlist"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">TakeRisk Runner</h3>
+          <p class="product-description">Performance et style pour les coureurs urbains</p>
+          <div class="product-price">€279.00</div>
+          <button class="add-to-cart">Ajouter au panier</button>
+        </div>
+      </div>
+
+      <!-- Produit 6 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://via.placeholder.com/400x400" alt="Sneaker TakeRisk 6">
+          <div class="product-badge new">Nouveau</div>
+          <div class="product-actions">
+            <button class="quick-view">Voir</button>
+            <button class="add-to-wishlist"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">TakeRisk Luxe</h3>
+          <p class="product-description">Cuir pleine fleur et détails en métal précieux</p>
+          <div class="product-price">€499.00</div>
+          <button class="add-to-cart">Ajouter au panier</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pagination -->
+  <section class="shop-pagination">
+    <button class="pagination-btn active">1</button>
+    <button class="pagination-btn">2</button>
+    <button class="pagination-btn">3</button>
+    <button class="pagination-btn next">Suivant <i class="fas fa-chevron-right"></i></button>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="shop-newsletter">
+    <div class="newsletter-container">
+      <h3>Rejoignez la communauté TakeRisk</h3>
+      <p>Abonnez-vous à notre newsletter pour recevoir en exclusivité nos nouveautés et offres spéciales.</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Votre email" required>
+        <button type="submit">S'abonner</button>
+      </form>
+    </div>
+  </section>
+
+  <script src="testnav.js"></script>
+  <script src="testshop.js"></script>
+</body>
+</html>

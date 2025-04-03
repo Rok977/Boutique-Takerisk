@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Navbar Scroll</title>
+  <link rel="stylesheet" href="testnav.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="home-page">
+  <nav class="nav-container">
+    <div class="nav-logo">TAKERISK</div>
+    <div class="nav-menu">
+      <a href="#categories"><i class="fas fa-tshirt"></i> Collection</a>
+      <a href="#about"><i class="fas fa-info-circle"></i> À propos</a>
+      <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-counter">0</span>
+      </a>
+      <a href="#" class="nav-user">
+        <i class="fas fa-user"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Section Hero -->
+  <section class="hero">
+    <div class="hero-image position-relative">
+      <img src="" alt="Luxury Hero" class="img-fluid w-100">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <!-- Logo grand du hero -->
+        <h1 class="glitch-text hero-logo" data-text="TAKERISK">TAKERISK</h1>
+        <p class="glitch-subtitle">Osez l'excellence dans l'ombre</p>
+        <a href="#categories" class="btn btn-outline-light mt-3">Voir la Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Catégories -->
+  <section id="categories">
+    <div class="section-content">
+      <h3>Accédez à nos articles</h3>
+      <div class="category-scroll-container">
+        <div class="category-scroll">
+          <a href="#" class="category-card sweatshirt">
+            <span>Sweatshirts</span>
+          </a>
+          <a href="#" class="category-card pants">
+            <span>Pantalons</span>
+          </a>
+          <a href="#" class="category-card cap">
+            <span>Casquettes</span>
+          </a>
+          <a href="#" class="category-card bags">
+            <span>Sacs</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section About -->
+  <section id="about">
+    <div class="section-content">
+      <h3>Qui sommes-nous ?</h3>
+      <blockquote>
+        <p>LE SUCCÈS APPARTIENT À CEUX QUI OSENT PENSER DIFFÉREMMENT.</p>
+        <cite>— Makavell</cite>
+      </blockquote>
+    </div>
+    <div class="about-container">
+      <div class="about-text">
+        <h2>Notre Vision</h2>
+        <p>
+          Chez TakeRisk, nous croyons que le style est une extension de la personnalité.
+          Notre marque est conçue pour ceux qui veulent s'affirmer, repousser les limites
+          et embrasser leur unicité à travers la mode.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="" id="imgsize" alt="Notre vision">
+      </div>
+    </div>
+    <div class="about-container reverse">
+      <div class="about-image">
+        <img src="" alt="Nos Valeurs">
+      </div>
+      <div class="about-text">
+        <h2>Nos Valeurs</h2>
+        <p>
+          TakeRisk, c'est plus qu'une marque : c'est un état d'esprit.
+          Nous prônons l'authenticité, la créativité et la passion, en
+          nous inspirant de l'univers urbain et des pionniers qui osent innover.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Contact -->
+  <section id="contact">
+    <div class="section-content">
+      <h3>Contactez-nous</h3>
+      <p>Un problème ? Une idée ? Une collaboration ? Contactez-nous !</p>
+      <form>
+        <input type="text" name="name" placeholder="Votre nom" required>
+        <input type="email" name="email" placeholder="Votre email" required>
+        <textarea name="message" placeholder="Votre message" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+  </section>
+
+  <script src="testnav.js"></script>
+</body>
+</html>

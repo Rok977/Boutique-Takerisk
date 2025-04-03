@@ -1,126 +1,306 @@
-// Smooth scrolling pour les liens d'ancrage
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
-      });
+// ✅ Script complet avec navbar fonctionnelle
+
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("✅ script.js chargé !");
+
+  // ========================
+  // 🔹 RESET GSAP ANIMATIONS 🔹
+  // ========================
+  if (typeof gsap !== 'undefined') {
+    gsap.set('.nav-container', { clearProps: 'all' });
+  }
+
+  // ========================
+  // 🔹 FONCTIONS UTILITAIRES 🔹
+  // ========================
+  function getCSRFToken() {
+    let csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+    if (csrfTokenMeta) {
+      return csrfTokenMeta.getAttribute("content");
+    } else {
+      let csrfForm = document.querySelector("#csrf-form input[name='csrfmiddlewaretoken']");
+      return csrfForm ? csrfForm.value : null;
+    }
+  }
+
+  // ========================
+  // 🔹 GESTION DE NAVBAR (CORRIGÉ) 🔹
+  // ========================
+  function handleNavbar() {
+    const nav = document.querySelector('.nav-container');
+    if (!nav) {
+      console.error("❌ Navbar introuvable");
+      return;
+    }
+
+    const threshold = 20;
+    let lastScroll = window.scrollY;
+    let ticking = false;
+
+    function updateNavbar() {
+      const currentScroll = window.scrollY;
+    
+      // ✅ S'il n'y a PAS de scroll possible, on affiche la navbar direct
+      if (document.body.scrollHeight <= window.innerHeight) {
+        nav.classList.add('visible');
+        return;
+      }
+    
+      if (currentScroll <= threshold) {
+        nav.classList.remove('visible');
+      } else if (currentScroll > lastScroll) {
+        nav.classList.add('visible');
+      }
+    
+      lastScroll = currentScroll;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initialisation
+    updateNavbar();
+  }
+
+  // ========================
+  // 🔹 GESTION DE COMPTE 🔹
+  // ========================
+  const editButtons = document.querySelectorAll(".edit-btn");
+  editButtons.forEach(button => {
+    button.addEventListener("click", function () {
+      let formId = this.getAttribute("data-form");
+      let form = document.getElementById(formId);
+      let textElement = this.previousElementSibling;
+
+      if (!form) {
+        console.error("❌ Erreur : Formulaire introuvable !");
+        return;
+      }
+
+      form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+      if (textElement)
+        textElement.style.display = (form.style.display === "block") ? "none" : "block";
+      this.textContent = (form.style.display === "block") ? "Annuler" : "Modifier";
     });
   });
-  
-  // Effet sur le header lors du scroll (ajoute la classe "scrolled" après 50px)
-  window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+
+  // ========================
+  // 🔹 GESTION DU PANIER 🔹
+  // ========================
+  function updateCartCounter() {
+    fetch("/cart/count/")
+      .then(response => response.json())
+      .then(data => {
+        let cartCounter = document.getElementById("cart-counter");
+        if (cartCounter) {
+          cartCounter.textContent = data.count;
+        } else {
+          console.warn("❌ Erreur : Élément #cart-counter introuvable !");
+        }
+      })
+      .catch(error => console.error("❌ Erreur mise à jour panier :", error));
+  }
+
+  function updateTotal() {
+    let total = 0;
+    document.querySelectorAll(".cart-item").forEach(item => {
+      const price = parseFloat(item.querySelector(".item-price").textContent);
+      const quantity = parseInt(item.querySelector(".item-qty").value) || 1;
+      total += price * quantity;
+    });
+    document.getElementById("cart-total").textContent = total.toFixed(2);
+  }
+
+  function updateCart(productId, quantity) {
+    fetch(`/update-cart/${productId}/${quantity}/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": getCSRFToken(),
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status !== "success") {
+          alert("❌ Erreur : " + data.message);
+        }
+      })
+      .catch(error => {
+        console.error("❌ Erreur AJAX :", error);
+        alert("❌ Une erreur est survenue.");
+      });
+  }
+
+  function changeQuantity(button, increment) {
+    let input = increment ? button.previousElementSibling : button.nextElementSibling;
+    let newValue = parseInt(input.value) + (increment ? 1 : -1);
+    if (newValue < 1) return;
+    input.value = newValue;
+    updateTotal();
+
+    let productId = button.closest(".cart-item").getAttribute("data-product-id");
+    updateCart(productId, newValue);
+  }
+
+  // ========================
+  // 🔹 GESTION DES ÉVÉNEMENTS 🔹
+  // ========================
+  document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("add-to-cart")) {
+      event.preventDefault();
+      let productId = event.target.getAttribute("data-product-id");
+
+      if (!productId) {
+        alert("Erreur : ID du produit introuvable !");
+        return;
+      }
+
+      let csrfToken = getCSRFToken();
+      if (!csrfToken) {
+        alert("❌ Erreur : Impossible de récupérer le token CSRF !");
+        return;
+      }
+
+      console.log(`🛒 Tentative d'ajout du produit ${productId} au panier...`);
+
+      fetch(`/add-to-cart/${productId}/`, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrfToken,
+          "X-Requested-With": "XMLHttpRequest",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({})
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "success") {
+            alert("✅ Produit ajouté au panier !");
+            console.log("✅ Réponse AJAX :", data);
+            updateCartCounter();
+          } else {
+            alert("❌ Erreur : " + data.message);
+          }
+        })
+        .catch(error => {
+          console.error("❌ Erreur AJAX :", error);
+          alert("❌ Une erreur est survenue.");
+        });
+    }
+
+    if (event.target.classList.contains("remove-item")) {
+      let cartItem = event.target.closest(".cart-item");
+      let productId = cartItem.getAttribute("data-product-id");
+
+      fetch(`/remove-from-cart/${productId}/`, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": getCSRFToken(),
+          "X-Requested-With": "XMLHttpRequest"
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "success") {
+            cartItem.remove();
+            updateTotal();
+          } else {
+            alert("❌ Erreur : " + data.message);
+          }
+        })
+        .catch(error => {
+          console.error("❌ Erreur AJAX :", error);
+          alert("❌ Une erreur est survenue.");
+        });
     }
   });
-  
-  // Effets de survol pour les boutons de filtre
-  document.querySelectorAll('.filter-button').forEach(button => {
-    button.addEventListener('mouseenter', () => {
-      button.style.transform = 'scale(1.05)';
-      button.style.transition = 'transform 0.3s ease';
-    });
-    button.addEventListener('mouseleave', () => {
-      button.style.transform = 'scale(1)';
+
+  document.querySelectorAll(".increase-qty").forEach(button => {
+    button.addEventListener("click", function () {
+      changeQuantity(this, true);
     });
   });
-  
-  // Animation de la barre de recherche lors du focus/blur
-  const searchBar = document.querySelector('.search-bar');
-  searchBar.addEventListener('focus', () => {
-    searchBar.style.transform = 'scale(1.02)';
-    searchBar.style.transition = 'transform 0.3s ease';
-  });
-  searchBar.addEventListener('blur', () => {
-    searchBar.style.transform = 'scale(1)';
-  });
-  
-  // Animation pour le bouton "Afficher plus"
-  const moreButton = document.querySelector('.more-button');
-  moreButton.addEventListener('mouseenter', () => {
-    moreButton.style.transform = 'scale(1.05)';
-    moreButton.style.transition = 'transform 0.3s ease';
-  });
-  moreButton.addEventListener('mouseleave', () => {
-    moreButton.style.transform = 'scale(1)';
-  });
-  
-  // Animation sur les liens du footer
-  document.querySelectorAll('footer a').forEach(link => {
-    link.addEventListener('mouseenter', () => {
-      link.style.color = '#0065FC';
-      link.style.transition = 'color 0.3s ease';
-    });
-    link.addEventListener('mouseleave', () => {
-      link.style.color = 'black';
+
+  document.querySelectorAll(".decrease-qty").forEach(button => {
+    button.addEventListener("click", function () {
+      changeQuantity(this, false);
     });
   });
-  
-  // Effet de survol sur les hébergements populaires
-  document.querySelectorAll('.popular .card').forEach(accommodation => {
-    accommodation.addEventListener('mouseenter', () => {
-      accommodation.style.transform = 'scale(1.02)';
-      accommodation.style.transition = 'transform 0.3s ease';
+
+  // ========================
+  // 🔹 GESTION DES FILTRES 🔹
+  // ========================
+  function applyFilters() {
+    let filters = { category: [], color: [], size: [] };
+    document.querySelectorAll(".filter-btn.active").forEach(button => {
+      let type = button.getAttribute("data-filter");
+      let value = button.getAttribute("data-value");
+      if (!filters[type]) filters[type] = [];
+      filters[type].push(value);
     });
-    accommodation.addEventListener('mouseleave', () => {
-      accommodation.style.transform = 'scale(1)';
+
+    fetch(`/filter-products/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": getCSRFToken(),
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(filters)
+    })
+      .then(response => response.json())
+      .then(data => updateProductList(data.products))
+      .catch(error => console.error("❌ Erreur AJAX :", error));
+  }
+
+  function updateProductList(products) {
+    let productList = document.getElementById("products-list");
+    if (!productList) return;
+    productList.innerHTML = products.length === 0 ? "<p>Aucun produit trouvé.</p>" : "";
+    products.forEach(product => {
+      productList.innerHTML += `
+        <div class="product-card">
+          <a href="/product/${product.id}/">
+            <img src="${product.image}" alt="${product.name}">
+          </a>
+          <h3><a href="/product/${product.id}/">${product.name}</a></h3>
+          <p class="price">${product.price}€</p>
+          <p>Couleur: ${product.color}</p>
+          <p>Taille: ${product.size}</p>
+          <button class="buy-btn add-to-cart" data-product-id="${product.id}">Ajouter au panier</button>
+        </div>`;
     });
-  });
-  
-  // Effet de survol sur les activités
-  document.querySelectorAll('.activity-card').forEach(activity => {
-    activity.addEventListener('mouseenter', () => {
-      activity.style.transform = 'scale(1.02)';
-      activity.style.transition = 'transform 0.3s ease';
-    });
-    activity.addEventListener('mouseleave', () => {
-      activity.style.transform = 'scale(1)';
-    });
-  });
-  
-  // Effet fade-in du body lors du chargement de la page
-  window.addEventListener('load', () => {
-    document.body.style.opacity = '1';
-  });
-  
-  // Animation des sections au scroll (fade-in)
-  document.addEventListener("DOMContentLoaded", function() {
-    const sections = document.querySelectorAll("section");
-    sections.forEach(section => {
-      section.style.opacity = "0";
-      section.style.transition = "opacity 0.8s ease-in-out";
-    });
-  
-    window.addEventListener("scroll", () => {
-      sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if (sectionTop < window.innerHeight - 100) {
-          section.style.opacity = "1";
-        }
-      });
-    });
-  });
-  
-  // Curseur personnalisé en bleu
-  const customCursor = document.getElementById("custom-cursor");
-  // Assurez-vous que le curseur est en bleu
-  customCursor.style.backgroundColor = "#0065FC";
-  document.addEventListener("mousemove", e => {
-    customCursor.style.left = e.pageX + "px";
-    customCursor.style.top = e.pageY + "px";
-  });
-  
-  // Effet d'agrandissement du curseur sur les éléments interactifs
-  document.querySelectorAll('a, button, .card, .filter-button').forEach(el => {
-    el.addEventListener("mouseenter", () => {
-      customCursor.style.transform = "scale(2)";
-    });
-    el.addEventListener("mouseleave", () => {
-      customCursor.style.transform = "scale(1)";
+  }
+
+  document.querySelectorAll(".filter-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      this.classList.toggle("active");
+      applyFilters();
     });
   });
-  
+
+  // ========================
+  // 🔹 ACCORDÉON 🔹
+  // ========================
+  document.querySelectorAll(".accordion-header").forEach(header => {
+    header.addEventListener("click", function () {
+      let content = this.nextElementSibling;
+      let isOpen = content.style.display === "block";
+      document.querySelectorAll(".accordion-content").forEach(c => c.style.display = "none");
+      content.style.display = isOpen ? "none" : "block";
+    });
+  });
+
+  // ========================
+  // 🔹 INITIALISATION 🔹
+  // ========================
+  handleNavbar(); // Initialisation de la navbar
+  updateCartCounter(); // Mise à jour du compteur de panier
+
+  console.log("✅ Toutes les fonctions ont été initialisées !");
+});

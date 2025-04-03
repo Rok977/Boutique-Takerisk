@@ -1,0 +1,360 @@
+/* Hero Section Shop */
+.shop-hero {
+    height: 300px;
+    background-color: #0D0D0D;
+    background-image: url('https://via.placeholder.com/1920x600');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 60px; /* Pour compenser la navbar fixe */
+  }
+  
+  .shop-hero-content {
+    color: white;
+    padding: 20px;
+    max-width: 800px;
+  }
+  
+  .shop-hero-content h1 {
+    font-size: 3.5rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+  
+  .shop-hero-content p {
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+  }
+  
+  /* Filtres et tri */
+  .shop-controls {
+    padding: 20px;
+    background-color: #1E1E1E;
+    position: sticky;
+    top: 60px; /* Hauteur de la navbar */
+    z-index: 100;
+  }
+  
+  .filters-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .filter-btn {
+    background: none;
+    border: none;
+    color: #EAEAEA;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 20px;
+  }
+  
+  .filter-btn.active {
+    background-color: #4A9CAC;
+    color: #0D0D0D;
+    font-weight: bold;
+  }
+  
+  .filter-btn:hover:not(.active) {
+    color: #4A9CAC;
+  }
+  
+  .sort-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .sort-container label {
+    color: #EAEAEA;
+    font-size: 0.9rem;
+  }
+  
+  #sort {
+    background-color: #333;
+    color: #EAEAEA;
+    border: 1px solid #444;
+    padding: 8px 15px;
+    border-radius: 5px;
+  }
+  
+  /* Grille de produits */
+  .shop-products {
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .product-card {
+    background-color: #1E1E1E;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .product-image {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+  }
+  
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  
+  .product-card:hover .product-image img {
+    transform: scale(1.05);
+  }
+  
+  .product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .product-badge.new {
+    background-color: #4A9CAC;
+  }
+  
+  .product-badge.limited {
+    background-color: #AC4A4A;
+  }
+  
+  .product-badge.sale {
+    background-color: #4AAC5E;
+  }
+  
+  .product-actions {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .product-card:hover .product-actions {
+    opacity: 1;
+  }
+  
+  .quick-view, .add-to-wishlist {
+    background-color: rgba(30, 30, 30, 0.8);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .add-to-wishlist {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .quick-view:hover {
+    background-color: #4A9CAC;
+  }
+  
+  .add-to-wishlist:hover {
+    color: #AC4A4A;
+  }
+  
+  .product-info {
+    padding: 20px;
+  }
+  
+  .product-name {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  
+  .product-description {
+    color: #AAAAAA;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    min-height: 40px;
+  }
+  
+  .product-price {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #AAAAAA;
+    margin-right: 10px;
+    font-size: 1rem;
+  }
+  
+  .sale-price {
+    color: #4AAC5E;
+  }
+  
+  .add-to-cart {
+    width: 100%;
+    background-color: #4A9CAC;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .add-to-cart:hover {
+    background-color: #3a7c8c;
+  }
+  
+  /* Pagination */
+  .shop-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 30px 0;
+  }
+  
+  .pagination-btn {
+    background-color: #1E1E1E;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .pagination-btn.active {
+    background-color: #4A9CAC;
+    color: #0D0D0D;
+    font-weight: bold;
+  }
+  
+  .pagination-btn:hover:not(.active) {
+    background-color: #333;
+  }
+  
+  .pagination-btn.next {
+    width: auto;
+    padding: 0 20px;
+    border-radius: 20px;
+    gap: 5px;
+  }
+  
+  /* Newsletter */
+  .shop-newsletter {
+    background-color: #1E1E1E;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .newsletter-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .newsletter-container h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .newsletter-container p {
+    color: #AAAAAA;
+    margin-bottom: 25px;
+  }
+  
+  .newsletter-form {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .newsletter-form input {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background: #333;
+    color: white;
+  }
+  
+  .newsletter-form button {
+    background: #4A9CAC;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .newsletter-form button:hover {
+    background: #3a7c8c;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .shop-hero-content h1 {
+      font-size: 2.5rem;
+    }
+    
+    .filters-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .product-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .newsletter-form {
+      flex-direction: column;
+    }
+  }

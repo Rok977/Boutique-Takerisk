@@ -9,7 +9,6 @@ from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('home/', views.home, name='home'),
     path('shop/', views.shop, name='shop'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
@@ -23,11 +22,7 @@ urlpatterns = [
     path("cart/count/", cart_count, name="cart_count"),
     path("search/", search, name="search"),  # ✅ Vérifier que cette ligne est bien là
     path("filter-products/", filter_products, name="filter_products"),
-
     path("add-review/<int:product_id>/", add_review, name="add_review"),  # ✅ Route pour soumettre un avis
-
-
-
     path('account/', account, name='account'),  # ✅ Un seul `account/`
     path("account/order_history/", order_history, name="order_history"),  # ✅ Corrigé
     path('create-checkout-session/', create_checkout_session, name='create_checkout_session'),

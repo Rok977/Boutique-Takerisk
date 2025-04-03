@@ -24,8 +24,7 @@ User = get_user_model()  # ✅ Modèle utilisateur personnalisé ou par défaut
 def index(request):
     return render(request, 'index.html')
 
-def home(request):
-    return render(request, 'home.html')
+
 
 def shop(request):
     products = Product.objects.all()

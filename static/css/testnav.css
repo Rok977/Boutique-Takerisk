@@ -1,0 +1,262 @@
+/* Réinitialisation de base */
+body {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  background-color: #0D0D0D;
+  color: #EAEAEA;
+}
+
+/* NAVIGATION PRINCIPALE - Conserve la fonctionnalité de scroll */
+.nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 20px;
+  z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform 0.4s ease;
+  /* Styles visuels améliorés */
+  background-color: rgba(30, 30, 30, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: white;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-container.visible .nav-logo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+.nav-container.visible {
+  transform: translateY(0);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.nav-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-menu a {
+  color: #EAEAEA;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+  color: #4A9CAC;
+}
+
+.nav-menu a i {
+  font-size: 1rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-cart, .nav-user {
+  color: white;
+  font-size: 1.2rem;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-cart:hover, .nav-user:hover {
+  color: #4A9CAC;
+}
+
+#cart-counter {
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 3px 7px;
+  position: absolute;
+  top: -8px;
+  right: -12px;
+}
+
+/* SECTION HERO - Amélioration visuelle sans affecter le scroll */
+.hero {
+  height: 100vh;
+  position: relative;
+  background: #000;
+}
+
+.hero-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  width: 100%;
+  z-index: 10;
+}
+
+.glitch-text {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.glitch-subtitle {
+  font-size: 1.2rem;
+  letter-spacing: 0.5em;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 2rem;
+}
+
+/* Sections de contenu */
+.section-content {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.section-content h3 {
+  color: white;
+  font-size: 28px;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Section Catégories */
+.category-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 20px 0;
+}
+
+.category-scroll {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.category-card {
+  position: relative;
+  min-width: 200px;
+  height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-card span {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 2px;
+}
+
+/* Section About */
+.about-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.about-text {
+  flex: 1;
+  padding: 20px;
+}
+
+.about-text h2 {
+  color: white;
+  font-size: 24px;
+}
+
+.about-image {
+  flex: 1;
+  text-align: center;
+}
+
+.about-image img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Section Contact */
+#contact form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#contact input,
+#contact textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background: #333;
+  color: white;
+}
+
+#contact button {
+  background: linear-gradient(90deg, #1E90FF, #0066FF);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

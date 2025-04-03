@@ -1,97 +1,14 @@
 /* ============================================= */
-/* responsive.css - Version optimisée            */
-/* Navbar mobile améliorée                       */
-/* Breakpoints :                                */
-/* - Mobile : ≤ 767px                           */
-/* - Tablette : 768px → 991px                   */
-/* - Desktop : ≥ 992px                          */
+/* MEDIA QUERIES UNIFIEES - VERSION OPTIMISEE    */
+/* Breakpoints :                                 */
+/* - Mobile : ≤ 767px                            */
+/* - Tablette : 768px → 991px                    */
+/* - Desktop : ≥ 992px                           */
 /* ============================================= */
-
-/* ============ RÉGLAGES GÉNÉRAUX ============ */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-/* ============ CONTENEURS PRINCIPAUX ============ */
-.container,
-.page-container,
-.cart-container,
-.shop-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 100px 20px 20px;
-    min-height: 80vh;
-}
-
-.shop-container,
-.cart-container {
-    max-width: 1300px;
-    padding: 20px;
-}
-
-/* ============ NAVIGATION ============ */
-.nav-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: #222;
-    z-index: 1000;
-    padding: 5px 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-left,
-.nav-right,
-.nav-center {
-    display: flex;
-    align-items: center;
-}
-
-.nav-left { justify-content: flex-start; }
-.nav-center { justify-content: center; }
-.nav-right { justify-content: flex-end; }
-
-.menu-toggle {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: white;
-    padding: 10px;
-}
-
-.nav-links {
-    display: flex;
-}
-
-.category-scroll-container {
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 10px 0;
-    width: 100%;
-    -webkit-overflow-scrolling: touch;
-}
-
-.category-scroll {
-    display: flex;
-    gap: 15px;
-    padding: 10px;
-}
 
 /* ============ VERSION MOBILE (≤ 767px) ============ */
 @media (max-width: 767px) {
-    /* CONTENEURS */
+    /* STRUCTURE ET CONTENEURS */
     .container,
     .page-container,
     .cart-container,
@@ -101,9 +18,10 @@ html, body {
         padding-right: 10px;
     }
 
-    /* NAVIGATION OPTIMISÉE */
+    /* NAVIGATION MOBILE OPTIMISEE */
     .nav-container {
         padding: 0 15px;
+        height: 60px;
     }
 
     .nav-left, 
@@ -136,7 +54,7 @@ html, body {
 
     .menu-toggle {
         display: block;
-        order: -1; /* Place à gauche */
+        order: -1;
     }
 
     .nav-links {
@@ -165,10 +83,41 @@ html, body {
         display: block;
     }
 
-    /* CATÉGORIES */
+    /* HERO SECTION */
+    .hero {
+        height: 80vh;
+        min-height: 600px;
+    }
+
+    .hero-logo {
+        font-size: 3rem !important;
+        letter-spacing: 0.1em !important;
+    }
+
+    .glitch-subtitle {
+        font-size: 1rem !important;
+        letter-spacing: 0.2em !important;
+    }
+
+    /* ABOUT SECTION */
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .about-text {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    /* CATEGORIES */
     .category-scroll-container {
         margin-top: 5px;
         padding: 8px 15px;
+    }
+
+    .category-scroll {
+        flex-direction: column;
     }
 
     .category-card {
@@ -178,7 +127,7 @@ html, body {
         scroll-snap-align: start;
     }
 
-    /* BOUTIQUE */
+    /* PRODUITS */
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -198,12 +147,25 @@ html, body {
 
 /* ============ VERSION TABLETTE (768px → 991px) ============ */
 @media (min-width: 768px) and (max-width: 991px) {
+    /* PRODUITS */
     .product-grid {
         grid-template-columns: repeat(3, 1fr);
     }
     
+    /* CATEGORIES */
     .category-card {
         width: 160px;
         height: 90px;
     }
+
+    /* NAVIGATION */
+    .nav-container {
+        padding: 10px;
+        backdrop-filter: blur(2px);
+    }
+}
+
+/* ============ VERSION DESKTOP (≥ 992px) ============ */
+@media (min-width: 992px) {
+    /* Styles spécifiques desktop si nécessaire */
 }

@@ -1,16 +1,69 @@
 {% extends 'base.html' %}
-
 {% block title %}Nous contacter - TakeRisk{% endblock %}
 {% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
 {% block content %}
-<section class="contact">
-    <h1>Contactez-nous</h1>
-    <form action="#" method="post">
-        {% csrf_token %}
-        <input type="text" name="name" placeholder="Votre nom" required>
-        <input type="email" name="email" placeholder="Votre email" required>
-        <textarea name="message" placeholder="Votre message"></textarea>
-        <button type="submit">Envoyer</button>
-    </form>
-</section>
+<div class="luxe-contact-container">
+    <!-- Section gauche - Visuel -->
+    <div class="luxe-contact-visual">
+        <div class="luxe-branding">
+            <span class="luxe-logo">TAKERISK</span>
+            <span class="luxe-sublogo">Exceptional Service</span>
+        </div>
+        <img src="{% static 'images/contact-bg.jpg' %}" alt="Contact Background" class="luxe-bg-image">
+    </div>
+
+    <!-- Section droite - Formulaire -->
+    <div class="luxe-contact-form">
+        <div class="luxe-form-container">
+            <h1 class="luxe-title">NOUS CONTACTER</h1>
+            <p class="luxe-subtitle">Une question ? Notre équipe vous répond</p>
+
+            <form action="#" method="post" class="luxe-form">
+                {% csrf_token %}
+                <div class="luxe-input-group">
+                    <input type="text" name="name" required class="luxe-input">
+                    <label class="luxe-label">Votre nom complet</label>
+                    <div class="luxe-underline"></div>
+                </div>
+
+                <div class="luxe-input-group">
+                    <input type="email" name="email" required class="luxe-input">
+                    <label class="luxe-label">Votre email</label>
+                    <div class="luxe-underline"></div>
+                </div>
+
+                <div class="luxe-input-group">
+                    <textarea name="message" required class="luxe-textarea"></textarea>
+                    <label class="luxe-label">Votre message</label>
+                    <div class="luxe-underline"></div>
+                </div>
+
+                <button type="submit" class="luxe-submit-btn">
+                    <span>ENVOYER LE MESSAGE</span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+
+            <div class="luxe-contact-info">
+                <div class="luxe-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>123 Rue du Luxe, Paris</span>
+                </div>
+                <div class="luxe-info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+33 1 23 45 67 89</span>
+                </div>
+                <div class="luxe-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@takerisk.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

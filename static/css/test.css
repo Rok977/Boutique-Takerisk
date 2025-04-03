@@ -1,0 +1,578 @@
+/* ================================================== */
+/* Unified CSS File (sans index.css)                */
+/* ================================================== */
+
+
+/* ------------------------------ */
+/* boutique.css                 */
+/* ------------------------------ */
+
+/* CONTAINER GÉNÉRAL */
+.shop-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 1300px;
+    margin: 50px auto;
+    padding: 20px;
+    gap: 40px;
+}
+
+/* FILTRE À GAUCHE */
+.filter-container {
+    width: 250px;
+    background: #121212;
+    padding: 20px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    margin-top: 11vh;
+}
+
+.page-container h2 {
+    margin-bottom: 5vh;
+}
+
+/* TITRES DES FILTRES */
+.filter-container h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* SECTION DES FILTRES */
+.filter-section {
+    margin-bottom: 15px;
+}
+.filter-section h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.filter-section ul {
+    list-style: none;
+    padding: 0;
+}
+.filter-section li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.filter-section input[type="checkbox"] {
+    transform: scale(1.2);
+}
+
+/* CONTENU PRINCIPAL */
+.page-container {
+    flex: 1;
+    background: transparent;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    box-shadow: none;
+}
+
+/* GRID DES PRODUITS */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+/* CARTES PRODUIT */
+.product-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+.product-card h3 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.price {
+    font-size: 14px;
+    color: #4f72a3;
+    margin: 10px 0;
+}
+
+.accordion-header {
+    background: #1E1E1E;
+    color: #a7a7a7;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+.accordion-header:hover {
+    background: #2a2a2a;
+}
+.accordion-content {
+    display: none;
+    padding: 10px;
+    transition: max-height 0.3s ease-in-out;
+}
+.accordion-content li {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+/* BOUTONS DE FILTRE */
+.filter-btn {
+    background: transparent;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease-in-out;
+    width: 100%;
+    text-align: center;
+}
+.filter-btn:hover {
+    background: #2a2a2a;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.filter-btn.active {
+    background: linear-gradient(90deg, #1E90FF, #0066FF);
+    color: white;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Liens dans les cartes produit */
+.product-card a {
+    color: #585858;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+.product-card a:hover,
+.product-card a:visited {
+    color: #585858 !important;
+    text-decoration: none;
+}
+
+
+/* ------------------------------ */
+/* cart.css                     */
+/* ------------------------------ */
+
+.cart-container {
+    max-width: 800px;
+    padding: 20px;
+    background: transparent;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    box-shadow: none;
+}
+.cart-divider {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #1E90FF, #0066FF);
+    margin: 15px 0;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+}
+.cart-items {
+    margin-top: 20px;
+}
+.cart-summary {
+    margin-top: 40vh;
+    background: #303030;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #080808;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+.cart-item-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.cart-item-details {
+    flex: 1;
+    margin-left: 15px;
+    text-align: left;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+.quantity-control input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+}
+
+
+/* ------------------------------ */
+/* home.css                     */
+/* ------------------------------ */
+
+/* Réinitialisation et styles de base pour Home */
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #161616;
+}
+section {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+.section-content {
+    width: 100% !important;
+    max-width: 1200px;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: auto;
+}
+.category-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.category-card {
+    width: 200px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.category-card:hover {
+    transform: scale(1.05);
+}
+.sweatshirt { background-image: url('../images/sweatshirt.jpg'); }
+.pants { background-image: url('../images/pants.jpg'); }
+.cap { background-image: url('../images/cap.jpg'); }
+.bags { background-image: url('../images/bags.jpg'); }
+blockquote {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+input, textarea {
+    width: 70vh;
+    max-width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+
+/* ------------------------------ */
+/* product.css                  */
+/* ------------------------------ */
+
+.product-gallery {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.product-gallery img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.product-info-container {
+    padding: 20px;
+    color: #ffffff;
+}
+.product-title {
+    font-size: 28px;
+    font-weight: bold;
+}
+.product-description {
+    font-size: 16px;
+    color: #bbbbbb;
+}
+.product-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.product-price {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.product-stock {
+    font-size: 16px;
+    font-weight: bold;
+}
+.product-stock.available {
+    color: #5fb24b;
+}
+.product-stock.out-of-stock {
+    color: #d23535;
+}
+.product-share {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.product-share p {
+    margin: 0;
+    color: #ffffff;
+    font-weight: bold;
+}
+.product-share a {
+    font-size: 24px;
+    color: #bbbbbb;
+    transition: 0.3s;
+}
+.product-share a:hover {
+    color: #0073ff;
+}
+.reviews-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+}
+.section-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+.review-box {
+    padding: 10px;
+    background: #333;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+.review-form {
+    margin-top: 20px;
+}
+.review-select {
+    padding: 10px;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+}
+.review-textarea {
+    width: 100%;
+    height: 100px;
+    background: #333;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+.related-products-container {
+    margin-top: 50px;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.related-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+.related-product-card {
+    background: #333;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+.related-product-title a {
+    color: white;
+    text-decoration: none;
+}
+.related-product-price {
+    color: linear-gradient(90deg, #1E90FF, #0066FF);
+    font-weight: bold;
+}
+#quantity-input {
+    width: auto !important;
+}
+
+
+/* ------------------------------ */
+/* style.css (global)           */
+/* ------------------------------ */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #0D0D0D;
+    color: #EAEAEA;
+    font-family: 'Manrope', sans-serif;
+    overflow-x: hidden;
+}
+body.popup-active {
+    overflow: hidden;
+    padding-right: 15px;
+}
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    padding: 20px;
+    min-height: 70vh;
+}
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* La règle pour .container, .page-container, .cart-container, .shop-container
+   est uniquement définie ici (elle n'est pas présente dans les autres fichiers) */
+.container, .page-container, .cart-container, .shop-container {
+    padding-top: 120px;
+    background: #1A1A1A;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* La règle suivante apparaît qu'une seule fois */
+.social-links a {
+    color: white;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Pour .product-card et ses états, la version globale est conservée ici */
+.product-card {
+    background: #1E1E1E;
+    border: 1px solid #303030;
+    border-radius: 10px;
+    padding: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 5px 20px rgba(30,144,255,0.5);
+}
+.social-links a:hover {
+    color: #f1c40f;
+}
+.container {
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+}
+blockquote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 22px;
+    color: #444;
+    line-height: 1.6;
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    border-left: 4px solid #0fcbf1;
+    max-width: 600px;
+}
+p, li {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #878787;
+    line-height: 3.0;
+}
+h3, h4 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    color: #585858;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+}
+.remove-item {
+    background: #ff0000;
+}
+.remove-item:hover {
+    background: #c50000;
+}
+.page-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding-top: 100px;
+    background: #1A1A1A;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2), 0 10px 25px rgba(0,0,0,0.1);
+    background: #e4e4e4;
+    position: relative;
+    padding: 20px;
+    z-index: 1;
+}
+.popup {
+    background: #222;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.popup.active {
+    opacity: 1;
+    transform: scale(1);
+}
