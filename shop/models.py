@@ -67,6 +67,17 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+def upload_image_to_gcs(sender, instance, **kwargs):
+    if instance.image and not default_storage.exists(instance.image.name):
+        local_path = instance.image.path  # <- fonctionne si image locale
+        if os.path.exists(local_path):
+            print(f"[SYNC] Re-upload image to GCS: {instance.image.name}")
+            with open(local_path, 'rb') as f:
+                instance.image.save(os.path.basename(instance.image.name), File(f), save=True)
+        else:
+            print(f"[⚠] Local image not found: {local_path}")
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

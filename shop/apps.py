@@ -6,3 +6,4 @@ class ShopConfig(AppConfig):
 
     def ready(self):
         pass  # Supprime l'import de `shop.signals`
+    
