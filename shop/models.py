@@ -1,5 +1,11 @@
 from django.db import models
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.files import File
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 class CustomUserManager(BaseUserManager):
@@ -69,15 +75,19 @@ class Product(models.Model):
         return self.name
     
 
-def upload_image_to_gcs(sender, instance, **kwargs):
+def upload_image_to_gcs(sender, instance, created, **kwargs):
     if instance.image and not default_storage.exists(instance.image.name):
-        local_path = instance.image.path  # <- fonctionne si image locale
-        if os.path.exists(local_path):
-            print(f"[SYNC] Re-upload image to GCS: {instance.image.name}")
-            with open(local_path, 'rb') as f:
-                instance.image.save(os.path.basename(instance.image.name), File(f), save=True)
-        else:
-            print(f"[⚠] Local image not found: {local_path}")
+        try:
+            # Lis directement le contenu binaire de l'image (buffer en mémoire)
+            image_content = instance.image.read()
+            instance.image.save(
+                instance.image.name,
+                ContentFile(image_content),
+                save=False  # ne relance pas un nouveau save()
+            )
+            print(f"[✔] Image uploadée dans GCS : {instance.image.name}")
+        except Exception as e:
+            print(f"[⚠] Erreur upload GCS : {e}")
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
