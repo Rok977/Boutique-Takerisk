@@ -13,6 +13,38 @@
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
         <meta name="csrf-token" content="{{ csrf_token }}">
         <meta name="description" content="Take Risk - Marque streetwear inspirée de la culture hip-hop. Découvre nos vêtements stylés et affirmés pour t'exprimer sans limites.">
+        <!-- ✅ Référencement SEO / META pour TakeRisk -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- 🔹 Titre & description -->
+        <title>TakeRisk — Marque Streetwear Hip-Hop</title>
+        <meta name="description" content="TakeRisk est une marque streetwear audacieuse inspirée de la culture hip-hop. Découvrez nos collections de sweats, pantalons, casquettes et plus. Osez le style. Prenez le risque.">
+
+        <!-- 🔹 Mots-clés SEO -->
+        <meta name="keywords" content="TakeRisk, streetwear, hip-hop, marque française, sweats, pantalons, casquettes, mode urbaine, vêtements homme femme, shop, boutique en ligne, style street, fashion">
+
+        <!-- 🔹 Auteur -->
+        <meta name="author" content="TakeRisk Team">
+
+        <!-- 🔹 Robots -->
+        <meta name="robots" content="index, follow">
+
+        <!-- 🔹 Canonical URL -->
+        <link rel="canonical" href="https://takerisk-34aa1e4960dc.herokuapp.com/">
+
+        <!-- 🔹 Open Graph pour les réseaux sociaux -->
+        <meta property="og:title" content="TakeRisk — Marque Streetwear Hip-Hop">
+        <meta property="og:description" content="Découvrez la boutique officielle de TakeRisk. Mode urbaine, vêtements stylés et esprit hip-hop.">
+        <meta property="og:image" content="https://takerisk-34aa1e4960dc.herokuapp.com/static/images/og-takerisk.jpg"> <!-- Change avec une image réelle -->
+        <meta property="og:url" content="https://takerisk-34aa1e4960dc.herokuapp.com/">
+        <meta property="og:type" content="website">
+
+        <!-- 🔹 Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="TakeRisk — Marque Streetwear Hip-Hop">
+        <meta name="twitter:description" content="Vêtements streetwear stylés inspirés de la culture hip-hop. Explore la collection sur notre boutique officielle.">
+        <meta name="twitter:image" content="https://takerisk-34aa1e4960dc.herokuapp.com/static/images/og-takerisk.jpg"> <!-- Change avec une image réelle -->
 
         <!-- Chargement de GSAP -->
 
@@ -37,10 +69,10 @@
                 
                 <!-- Menu principal avec icônes -->
                 <div class="nav-menu">
-                    <a href="{% url 'index' %}"><i class="fas fa-home"></i> Accueil</a>
-                    <a href="{% url 'shop' %}"><i class="fas fa-tshirt"></i> Boutique</a>
-                    <a href="{% url 'about' %}"><i class="fas fa-info-circle"></i> À propos</a>
-                    <a href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact</a>
+                    <a href="{% url 'index' %}"><i class="fas fa-home"></i></a>
+                    <a href="{% url 'shop' %}"><i class="fas fa-tshirt"></i></a>
+                    <a href="{% url 'about' %}"><i class="fas fa-info-circle"></i></a>
+                    <a href="{% url 'contact' %}"><i class="fas fa-envelope"></i> </a>
                 </div>
             
                 <!-- Partie droite avec panier et utilisateur -->
