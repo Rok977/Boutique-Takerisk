@@ -10,12 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-import dj_database_url
-from pathlib import Path
-from stripe.error import StripeError
-from google.oauth2 import service_account
-from dotenv import load_dotenv
 import tempfile
+from pathlib import Path
+
+import dj_database_url
+from dotenv import load_dotenv
+from google.oauth2 import service_account
 
 load_dotenv()
 
@@ -25,24 +25,36 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Si la variable d'environnement GOOGLE_APPLICATION_CREDENTIALS_JSON est définie,
 # nous créons un fichier temporaire contenant les credentials (pour Heroku par exemple)
 json_credentials = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+credentials_file = None
+
 if json_credentials:
-    temp_file = tempfile.NamedTemporaryFile(delete=False, mode='w', encoding='utf-8', suffix='.json')
+    temp_file = tempfile.NamedTemporaryFile(
+        delete=False,
+        mode="w",
+        encoding="utf-8",
+        suffix=".json",
+    )
     temp_file.write(json_credentials)
     temp_file.flush()
     temp_file.close()
-    GOOGLE_APPLICATION_CREDENTIALS = temp_file.name
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
+    credentials_file = temp_file.name
+elif os.path.exists(BASE_DIR / "key.json"):
+    credentials_file = str(BASE_DIR / "key.json")
+
+if credentials_file:
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_file
+
+GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME")
+
+if credentials_file and GS_BUCKET_NAME:
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(credentials_file)
+    DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+    MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
 else:
-    # Sinon, nous utilisons le fichier local key.json (développement)
-    GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, "key.json")
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
-
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    GOOGLE_APPLICATION_CREDENTIALS
-)
-
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME")  # À définir dans votre .env
+    GS_CREDENTIALS = None
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -192,10 +204,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
-# Configuration des fichiers médias
-MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

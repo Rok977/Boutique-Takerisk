@@ -86,13 +86,6 @@ def shop_view(request):
     })
 
 
-# ✅ Vérification du chargement des variables d'environnement
-print(f"🔍 STRIPE_PUBLISHABLE_KEY: {settings.STRIPE_PUBLISHABLE_KEY}")
-print(f"🔍 STRIPE_SECRET_KEY: {settings.STRIPE_SECRET_KEY}")
-print(f"🔍 STRIPE_SUCCESS_URL: {settings.STRIPE_SUCCESS_URL}")
-print(f"🔍 STRIPE_CANCEL_URL: {settings.STRIPE_CANCEL_URL}")
-
-
 @csrf_exempt  # ✅ Désactive la protection CSRF uniquement pour Stripe
 def create_checkout_session(request):
     if not request.user.is_authenticated:

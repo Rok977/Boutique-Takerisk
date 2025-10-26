@@ -1,6 +1,5 @@
 {% load static %}
 {% load socialaccount %}
-{% csrf_token %}
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -55,7 +54,7 @@
     </head>
     <body class="{% block body_class %} {% endblock %}">
 
-        <form class="csrf-form">
+        <form id="csrf-form" class="csrf-form" style="display: none;">
             {% csrf_token %}
         </form>
 
